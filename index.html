@@ -20,14 +20,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Visas Laborales GT">
 <meta property="og:description" content="Evaluación gratuita para visas laborales. Descubre si calificas para trabajar en Estados Unidos, Canadá o España.">
-<meta property="og:image" content="img/logo.png">
+<!-- Se utiliza URL absoluta de Vercel para garantizar la visualización de la miniatura -->
+<meta property="og:image" content="https://preevaluacion-visasgt.vercel.app/img/logo.png">
 <meta property="og:site_name" content="Visas Laborales GT">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Visas Laborales GT">
 <meta name="twitter:description" content="Evaluación gratuita para visas laborales.">
-<meta name="twitter:image" content="img/logo.png">
+<meta name="twitter:image" content="https://preevaluacion-visasgt.vercel.app/img/logo.png">
 
 <style>
 
@@ -104,67 +105,19 @@ font-size:16px;
 
 }
 
-.tabs{
-
-display:flex;
-justify-content:center;
-gap:8px;
-margin:20px auto;
-max-width:520px;
-padding:0 15px;
-flex-wrap:wrap;
-
-}
-
-.tab-btn{
-
-flex:1;
-min-width:140px;
-padding:13px;
-border:none;
-border-radius:12px;
-background:rgba(255,255,255,.15);
-color:white;
-font-weight:bold;
-cursor:pointer;
-transition:.3s;
-
-}
-
-.tab-btn:hover{
-
-transform:translateY(-2px);
-
-}
-
-.tab-btn.active{
-
-background:var(--gold);
-color:#222;
-
-}
-
 .container{
 
 max-width:520px;
 margin:auto;
-padding:0 15px 60px;
+padding:30px 15px 60px;
 
 }
 
 .card{
-
-display:none;
 background:white;
 border-radius:18px;
 padding:24px;
 box-shadow:0 12px 30px rgba(0,0,0,.25);
-
-}
-
-.card.active{
-
-display:block;
 
 }
 
@@ -285,6 +238,11 @@ line-height:1.5;
 
 }
 
+/* Clase dinámica para ocultar selectores de idioma o experiencia condicionales */
+.hidden-field {
+    display: none;
+}
+
 </style>
 
 </head>
@@ -307,22 +265,25 @@ Evaluación gratuita • Asesoría profesional para visas laborales de
 </p>
 
 </header>
-<div class="tabs">
-  <button class="tab-btn active" data-tab="us">🇺🇸 Estados Unidos</button>
-  <button class="tab-btn" data-tab="ca">🇨🇦 Canadá</button>
-  <button class="tab-btn" data-tab="es">🇪🇸 España</button>
-</div>
 
 <div class="container">
 
-  <!-- ESTADOS UNIDOS -->
-  <form class="card active" id="form-us" data-pais="Estados Unidos">
+  <!-- FORMULARIO UNIFICADO -->
+  <form class="card" id="form-evaluacion">
 
-    <h2>Evaluación • Estados Unidos</h2>
+    <h2>Evaluación General</h2>
 
     <div class="flags">
-      Visas H-2A (Agrícola) y H-2B (No Agrícola)
+      Complete sus datos para conocer su elegibilidad laboral en el extranjero.
     </div>
+
+    <label>¿A qué país desea aplicar para la evaluación?</label>
+    <select name="pais_destino" id="pais_destino" required>
+      <option value="">Seleccione el país</option>
+      <option value="Estados Unidos">🇺🇸 Estados Unidos</option>
+      <option value="Canadá">🇨🇦 Canadá</option>
+      <option value="España">🇪🇸 España</option>
+    </select>
 
     <label>Nombre completo</label>
     <input type="text" name="nombre" required>
@@ -347,21 +308,40 @@ Evaluación gratuita • Asesoría profesional para visas laborales de
       <option>No tengo</option>
     </select>
 
+    <!-- Experiencia laboral dinámica -->
     <label>¿Tiene experiencia laboral?</label>
-    <select name="experiencia" required>
-      <option value="">Seleccione</option>
-      <option>Agrícola (cultivo o cosecha)</option>
-      <option>Construcción</option>
-      <option>Atención a pacientes / cuidado</option>
-      <option>Hotelería / Restaurantes</option>
-      <option>Fábricas / Producción</option>
-      <option>Ninguna experiencia</option>
+    <select name="experiencia" id="experiencia" required>
+      <option value="">Seleccione primero un país de interés</option>
     </select>
 
-    <label>¿Ha viajado antes a Estados Unidos?</label>
-    <div class="radio-group">
-      <label><input type="radio" name="viajo" value="Sí" required> Sí</label>
-      <label><input type="radio" name="viajo" value="No"> No</label>
+    <!-- Campo condicional de idiomas (Solo para Canadá) -->
+    <div id="wrapper-idioma" class="hidden-field">
+        <label>Nivel de inglés o francés</label>
+        <select name="idioma" id="idioma">
+            <option value="">Seleccione</option>
+            <option>Básico</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+            <option>No hablo</option>
+        </select>
+    </div>
+
+    <!-- Campo condicional de contactos (Solo para España) -->
+    <div id="wrapper-contactos" class="hidden-field">
+        <label>¿Tiene familiares o contactos en España?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="contactos" id="contacto_si" value="Sí"> Sí</label>
+            <label><input type="radio" name="contactos" id="contacto_no" value="No"> No</label>
+        </div>
+    </div>
+
+    <!-- Campo condicional de viajes (Solo para USA) -->
+    <div id="wrapper-viajo" class="hidden-field">
+        <label>¿Ha viajado antes a Estados Unidos?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="viajo" id="viajo_si" value="Sí"> Sí</label>
+            <label><input type="radio" name="viajo" id="viajo_no" value="No"> No</label>
+        </div>
     </div>
 
     <label>¿Tiene antecedentes penales?</label>
@@ -401,374 +381,188 @@ Evaluación gratuita • Asesoría profesional para visas laborales de
       Ver mi evaluación
     </button>
 
-    <div class="result" id="result-us"></div>
+    <div class="result" id="result-evaluacion"></div>
 
   </form>
-  <!-- CANADÁ -->
-<form class="card" id="form-ca" data-pais="Canadá">
-
-    <h2>Evaluación • Canadá</h2>
-
-    <div class="flags">
-        Programa de Trabajadores Extranjeros Temporales
-    </div>
-
-    <label>Nombre completo</label>
-    <input type="text" name="nombre" required>
-
-    <label>Edad</label>
-    <input type="number" name="edad" min="18" max="65" required>
-
-    <label>Sexo</label>
-
-    <div class="radio-group">
-        <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
-        <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
-    </div>
-
-    <label>Departamento donde vive</label>
-    <input type="text" name="depto" required>
-
-    <label>¿Tiene pasaporte vigente?</label>
-
-    <select name="pasaporte" required>
-        <option value="">Seleccione</option>
-        <option>Sí, vigente</option>
-        <option>Vencido</option>
-        <option>No tengo</option>
-    </select>
-
-    <label>Experiencia laboral</label>
-
-    <select name="experiencia" required>
-        <option value="">Seleccione</option>
-        <option>Agrícola</option>
-        <option>Construcción</option>
-        <option>Procesamiento de alimentos</option>
-        <option>Hotelería</option>
-        <option>Manufactura</option>
-        <option>Ninguna experiencia</option>
-    </select>
-
-    <label>Nivel de inglés o francés</label>
-
-    <select name="idioma" required>
-        <option value="">Seleccione</option>
-        <option>Básico</option>
-        <option>Intermedio</option>
-        <option>Avanzado</option>
-        <option>No hablo</option>
-    </select>
-
-    <label>¿Tiene antecedentes penales?</label>
-
-    <div class="radio-group">
-        <label><input type="radio" name="antecedentes" value="No" required> No</label>
-        <label><input type="radio" name="antecedentes" value="Sí"> Sí</label>
-    </div>
-
-    <label>Día preferido para ser contactado</label>
-
-    <select name="dia" required>
-        <option value="">Seleccione</option>
-        <option>Lunes</option>
-        <option>Martes</option>
-        <option>Miércoles</option>
-        <option>Jueves</option>
-        <option>Viernes</option>
-        <option>Sábado</option>
-    </select>
-
-    <label>Horario preferido</label>
-
-    <select name="hora" required>
-        <option value="">Seleccione</option>
-        <option>8:00 a.m. - 10:00 a.m.</option>
-        <option>10:00 a.m. - 12:00 p.m.</option>
-        <option>2:00 p.m. - 4:00 p.m.</option>
-        <option>4:00 p.m. - 6:00 p.m.</option>
-    </select>
-
-    <label>Número de WhatsApp</label>
-
-    <input
-        type="tel"
-        name="telefono"
-        placeholder="Ejemplo: 5555-5555"
-        required>
-
-    <button class="btn-eval" type="submit">
-        Ver mi evaluación
-    </button>
-
-    <div class="result" id="result-ca"></div>
-
-</form>
-<!-- ESPAÑA -->
-<form class="card" id="form-es" data-pais="España">
-
-    <h2>Evaluación • España</h2>
-
-    <div class="flags">
-        Contratación en origen • Agricultura • Hostelería • Cuidado de personas
-    </div>
-
-    <label>Nombre completo</label>
-    <input type="text" name="nombre" required>
-
-    <label>Edad</label>
-    <input type="number" name="edad" min="18" max="65" required>
-
-    <label>Sexo</label>
-
-    <div class="radio-group">
-        <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
-        <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
-    </div>
-
-    <label>Departamento donde vive</label>
-    <input type="text" name="depto" required>
-
-    <label>¿Tiene pasaporte vigente?</label>
-
-    <select name="pasaporte" required>
-        <option value="">Seleccione</option>
-        <option>Sí, vigente</option>
-        <option>Vencido</option>
-        <option>No tengo</option>
-    </select>
-
-    <label>Experiencia laboral</label>
-
-    <select name="experiencia" required>
-        <option value="">Seleccione</option>
-        <option>Agricultura</option>
-        <option>Hostelería / Restaurantes</option>
-        <option>Cuidado de adultos mayores</option>
-        <option>Construcción</option>
-        <option>Limpieza</option>
-        <option>Ninguna experiencia</option>
-    </select>
-
-    <label>¿Tiene familiares o contactos en España?</label>
-
-    <div class="radio-group">
-        <label><input type="radio" name="contactos" value="Sí" required> Sí</label>
-        <label><input type="radio" name="contactos" value="No"> No</label>
-    </div>
-
-    <label>¿Tiene antecedentes penales?</label>
-
-    <div class="radio-group">
-        <label><input type="radio" name="antecedentes" value="No" required> No</label>
-        <label><input type="radio" name="antecedentes" value="Sí"> Sí</label>
-    </div>
-
-    <label>Día preferido para ser contactado</label>
-
-    <select name="dia" required>
-        <option value="">Seleccione</option>
-        <option>Lunes</option>
-        <option>Martes</option>
-        <option>Miércoles</option>
-        <option>Jueves</option>
-        <option>Viernes</option>
-        <option>Sábado</option>
-    </select>
-
-    <label>Horario preferido</label>
-
-    <select name="hora" required>
-        <option value="">Seleccione</option>
-        <option>8:00 a.m. - 10:00 a.m.</option>
-        <option>10:00 a.m. - 12:00 p.m.</option>
-        <option>2:00 p.m. - 4:00 p.m.</option>
-        <option>4:00 p.m. - 6:00 p.m.</option>
-    </select>
-
-    <label>Número de WhatsApp</label>
-
-    <input
-        type="tel"
-        name="telefono"
-        placeholder="Ejemplo: 5555-5555"
-        required>
-
-    <button class="btn-eval" type="submit">
-        Ver mi evaluación
-    </button>
-
-    <div class="result" id="result-es"></div>
-
-</form>
 
 </div>
 <script>
 
 const WHATSAPP_NUMBER = "50239124057";
 
-// Cambio de pestañas
-document.querySelectorAll(".tab-btn").forEach(btn=>{
+// Opciones de experiencias laborales por cada país
+const experienciasPorPais = {
+  "Estados Unidos": [
+    "Agrícola (cultivo o cosecha)",
+    "Construcción",
+    "Atención a pacientes / cuidado",
+    "Hotelería / Restaurantes",
+    "Fábricas / Producción",
+    "Ninguna experiencia"
+  ],
+  "Canadá": [
+    "Agrícola",
+    "Construcción",
+    "Procesamiento de alimentos",
+    "Hotelería",
+    "Manufactura",
+    "Ninguna experiencia"
+  ],
+  "España": [
+    "Agricultura",
+    "Hostelería / Restaurantes",
+    "Cuidado de adultos mayores",
+    "Construcción",
+    "Limpieza",
+    "Ninguna experiencia"
+  ]
+};
 
-    btn.addEventListener("click",()=>{
+const selectPais = document.getElementById("pais_destino");
+const selectExperiencia = document.getElementById("experiencia");
+const wrapperIdioma = document.getElementById("wrapper-idioma");
+const selectIdioma = document.getElementById("idioma");
+const wrapperContactos = document.getElementById("wrapper-contactos");
+const wrapperViajo = document.getElementById("wrapper-viajo");
 
-        document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-        document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+// Cambios dinámicos en el formulario al seleccionar el país
+selectPais.addEventListener("change", function() {
+    const pais = this.value;
+    
+    // Limpiar opciones de experiencia previa
+    selectExperiencia.innerHTML = '<option value="">Seleccione</option>';
+    
+    // Ocultar todos los bloques condicionales inicialmente y remover su obligatoriedad
+    wrapperIdioma.classList.add("hidden-field");
+    selectIdioma.removeAttribute("required");
+    
+    wrapperContactos.classList.add("hidden-field");
+    document.getElementById("contacto_si").removeAttribute("required");
+    
+    wrapperViajo.classList.add("hidden-field");
+    document.getElementById("viajo_si").removeAttribute("required");
 
-        btn.classList.add("active");
+    if (experienciasPorPais[pais]) {
+        // Cargar las experiencias correspondientes
+        experienciasPorPais[pais].forEach(exp => {
+            const option = document.createElement("option");
+            option.value = exp;
+            option.textContent = exp;
+            selectExperiencia.appendChild(option);
+        });
 
-        document.getElementById("form-"+btn.dataset.tab).classList.add("active");
-
-    });
-
+        // Mostrar campos requeridos según el país
+        if (pais === "Canadá") {
+            wrapperIdioma.classList.remove("hidden-field");
+            selectIdioma.setAttribute("required", "required");
+        } else if (pais === "España") {
+            wrapperContactos.classList.remove("hidden-field");
+            document.getElementById("contacto_si").setAttribute("required", "required");
+        } else if (pais === "Estados Unidos") {
+            wrapperViajo.classList.remove("hidden-field");
+            document.getElementById("viajo_si").setAttribute("required", "required");
+        }
+    } else {
+        selectExperiencia.innerHTML = '<option value="">Seleccione primero un país de interés</option>';
+    }
 });
 
-// Evaluación
-
-function evaluar(data,pais){
+// Función evaluadora unificada
+function evaluar(data, pais){
 
     let observaciones=[];
 
     if(data.pasaporte==="No tengo"){
-
         observaciones.push("Debe tramitar un pasaporte vigente.");
-
     }
 
     if(data.pasaporte==="Vencido"){
-
         observaciones.push("Debe renovar su pasaporte.");
-
     }
 
     if(data.experiencia==="Ninguna experiencia"){
-
         observaciones.push("Se recomienda recibir orientación para elegir las mejores oportunidades laborales.");
-
     }
 
     if(data.antecedentes==="Sí"){
-
         observaciones.push("Su expediente requiere una revisión personalizada.");
-
     }
 
     if(pais==="Canadá" && data.idioma==="No hablo"){
-
         observaciones.push("Es recomendable aprender inglés básico para aumentar sus posibilidades.");
-
     }
 
     if(observaciones.length===0){
-
         observaciones.push("Cumple con los requisitos iniciales para iniciar su proceso.");
-
     }
 
     return observaciones;
-
 }
 
+// Envío del Formulario Único
+const form = document.getElementById("form-evaluacion");
 
-// Formularios
+form.addEventListener("submit", function(e){
 
-["us","ca","es"].forEach(id=>{
+    e.preventDefault();
 
-const form=document.getElementById("form-"+id);
+    const datos = Object.fromEntries(new FormData(form).entries());
+    const pais = datos.pais_destino;
+    const resultado = document.getElementById("result-evaluacion");
+    const lista = evaluar(datos, pais);
 
-form.addEventListener("submit",function(e){
+    let html = "";
 
-e.preventDefault();
+    html += `
+    <h3>✅ Resultado de su evaluación</h3>
+    <p><strong>Hola ${datos.nombre}</strong>, gracias por completar su evaluación.</p>
+    <p>De acuerdo con la información proporcionada para <strong>${pais}</strong>, estas son nuestras observaciones:</p>
+    <ul>
+    ${lista.map(i=>"<li>"+i+"</li>").join("")}
+    </ul>
+    <p>
+    Un asesor de <strong>Visas Laborales GT</strong> revisará su caso y le orientará sobre el proceso más adecuado.
+    </p>
+    `;
 
-const datos=Object.fromEntries(new FormData(form).entries());
+    // Campos opcionales estructurados para que no envíen "undefined" en WhatsApp si no corresponden
+    const campoIdioma = pais === "Canadá" ? `\nIdioma: ${datos.idioma}` : "";
+    const campoContactos = pais === "España" ? `\nContactos en España: ${datos.contactos}` : "";
+    const campoViajo = pais === "Estados Unidos" ? `\n¿Viajó antes a USA?: ${datos.viajo}` : "";
 
-const pais=form.dataset.pais;
-
-const resultado=document.getElementById("result-"+id);
-
-const lista=evaluar(datos,pais);
-
-let html="";
-
-html+=`
-<h3>✅ Resultado de su evaluación</h3>
-
-<p><strong>Hola ${datos.nombre}</strong>, gracias por completar su evaluación.</p>
-
-<p>De acuerdo con la información proporcionada, estas son nuestras observaciones:</p>
-
-<ul>
-${lista.map(i=>"<li>"+i+"</li>").join("")}
-</ul>
-
-<p>
-Un asesor de <strong>Visas Laborales GT</strong> revisará su caso y le orientará sobre el proceso más adecuado.
-</p>
-
-`;
-
-const mensaje=
-
+    const mensaje = 
 `Hola.
-
 Deseo agendar una asesoría gratuita.
 
 País de interés: ${pais}
-
 Nombre: ${datos.nombre}
-
 Edad: ${datos.edad}
-
 Sexo: ${datos.sexo}
-
 Departamento: ${datos.depto}
-
 Pasaporte: ${datos.pasaporte}
-
-Experiencia: ${datos.experiencia}
-
+Experiencia: ${datos.experiencia}${campoIdioma}${campoContactos}${campoViajo}
 Antecedentes: ${datos.antecedentes}
-
 Día preferido: ${datos.dia}
-
 Horario: ${datos.hora}
-
 WhatsApp: ${datos.telefono}`;
 
-const url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(mensaje);
+    const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(mensaje);
 
-html+=`
+    html += `
+    <a class="btn-whatsapp" href="${url}" target="_blank">
+    📲 Agendar asesoría por WhatsApp
+    </a>
+    <p class="disclaimer">
+    La presente evaluación es únicamente informativa y no constituye una aprobación de visa.
+    La elegibilidad definitiva depende de la documentación presentada y de las autoridades migratorias correspondientes.
+    </p>
+    `;
 
-<a class="btn-whatsapp"
-href="${url}"
-target="_blank">
-
-📲 Agendar asesoría por WhatsApp
-
-</a>
-
-<p class="disclaimer">
-
-La presente evaluación es únicamente informativa y no constituye una aprobación de visa.
-
-La elegibilidad definitiva depende de la documentación presentada y de las autoridades migratorias correspondientes.
-
-</p>
-
-`;
-
-resultado.innerHTML=html;
-
-resultado.style.display="block";
-
-resultado.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-});
-
+    resultado.innerHTML = html;
+    resultado.style.display = "block";
+    resultado.scrollIntoView({
+        behavior: "smooth"
+    });
 });
 
 </script>
