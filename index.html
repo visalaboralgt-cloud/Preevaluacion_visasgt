@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visas Laborales GT | EvaluaciÃ³n Gratuita</title>
+<style>
+  :root{
+    --steel:#5b6b73;
+    --steel-dark:#2f3a40;
+    --gold:#c8a24a;
+    --silver:#c8ccd0;
+    --bg:#0f1417;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:linear-gradient(160deg,var(--steel-dark),var(--steel));min-height:100vh;color:#1c1c1c;}
+  header{text-align:center;padding:32px 16px 16px;color:#fff;}
+  header h1{font-size:1.6rem;letter-spacing:1px;}
+  header .badge{
+    display:inline-block;width:70px;height:70px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--silver), var(--steel-dark));
+    border:3px solid var(--gold);margin-bottom:10px;
+  }
+  header p{opacity:.85;margin-top:6px;font-size:.95rem;}
+  .tabs{display:flex;justify-content:center;gap:8px;margin:20px auto;max-width:520px;flex-wrap:wrap;padding:0 12px;}
+  .tab-btn{
+    flex:1;min-width:140px;padding:12px 10px;border:none;border-radius:10px;
+    background:rgba(255,255,255,.12);color:#fff;font-weight:600;cursor:pointer;
+    transition:.2s;font-size:.9rem;
+  }
+  .tab-btn.active{background:var(--gold);color:#2f2f2f;}
+  .container{max-width:520px;margin:0 auto 60px;padding:0 16px;}
+  .card{
+    background:var(--card);border-radius:16px;padding:24px 20px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);display:none;
+  }
+  .card.active{display:block;}
+  .card h2{color:var(--steel-dark);margin-bottom:4px;}
+  .card .flags{font-size:.85rem;color:#888;margin-bottom:16px;}
+  label{display:block;margin-top:14px;font-size:.88rem;font-weight:600;color:#333;}
+  input, select{
+    width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:.95rem;
+  }
+  .radio-group, .check-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;}
+  .radio-group label, .check-group label{
+    font-weight:400;font-size:.85rem;background:#f2f2f2;padding:6px 10px;border-radius:20px;
+    display:flex;align-items:center;gap:5px;margin-top:0;cursor:pointer;
+  }
+  .btn-eval{
+    margin-top:22px;width:100%;padding:14px;border:none;border-radius:10px;
+    background:linear-gradient(90deg,var(--steel-dark),var(--steel));color:#fff;
+    font-weight:700;font-size:1rem;cursor:pointer;
+  }
+  .result{display:none;margin-top:20px;padding:16px;border-radius:12px;background:#f7f4ea;border:1px solid var(--gold);}
+  .result h3{color:var(--steel-dark);margin-bottom:8px;}
+  .result ul{margin:8px 0 8px 18px;font-size:.9rem;color:#444;}
+  .result .status{font-weight:700;margin-top:6px;}
+  .schedule{display:none;margin-top:16px;}
+  .schedule.show{display:block;}
+  .btn-whatsapp{
+    margin-top:16px;width:100%;padding:14px;border:none;border-radius:10px;
+    background:#25D366;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+  }
+  .disclaimer{font-size:.75rem;color:#777;margin-top:14px;line-height:1.4;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge"></div>
+  <h1>VISAS LABORALES GT</h1>
+  <p>EvaluaciÃ³n gratuita Â· AsesorÃ­a en trÃ¡mites de trabajo temporal ðŸ‡ºðŸ‡¸ ðŸ‡¨ðŸ‡¦ ðŸ‡ªðŸ‡¸</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="us">ðŸ‡ºðŸ‡¸ Estados Unidos</button>
+  <button class="tab-btn" data-tab="ca">ðŸ‡¨ðŸ‡¦ CanadÃ¡</button>
+  <button class="tab-btn" data-tab="es">ðŸ‡ªðŸ‡¸ EspaÃ±a</button>
+</div>
+
+<div class="container">
+
+  <!-- ESTADOS UNIDOS -->
+  <form class="card active" id="form-us" data-pais="Estados Unidos">
+    <h2>EvaluaciÃ³n Â· Estados Unidos</h2>
+    <div class="flags">Visas H-2A (agrÃ­cola) y H-2B (no agrÃ­cola)</div>
+
+    <label>Nombre completo</label>
+    <input type="text" name="nombre" required>
+
+    <label>Edad</label>
+    <input type="number" name="edad" min="18" required>
+
+    <label>Sexo</label>
+    <div class="radio-group">
+      <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
+      <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
+    </div>
+
+    <label>Departamento donde vive</label>
+    <input type="text" name="depto" required>
+
+    <label>Â¿Tiene pasaporte vigente?</label>
+    <select name="pasaporte" required>
+      <option value="">Seleccione</option>
+      <option>SÃ­, vigente</option>
+      <option>Vencido</option>
+      <option>No tengo</option>
+    </select>
+
+    <label>Â¿Tiene experiencia laboral previa?</label>
+    <select name="experiencia" required>
+      <option value="">Seleccione</option>
+      <option>AgrÃ­cola (cultivo, cosecha)</option>
+      <option>ConstrucciÃ³n</option>
+      <option>AtenciÃ³n a pacientes / cuidado</option>
+      <option>HotelerÃ­a / restaurantes</option>
+      <option>Ninguna experiencia</option>
+    </select>
+
+    <label>Â¿Ha viajado antes a Estados Unidos?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="viajo" value="SÃ­" required> SÃ­</label>
+      <label><input type="radio" name="viajo" value="No"> No</label>
+    </div>
+
+    <label>Â¿Tiene antecedentes penales?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="antecedentes" value="No" required> No</label>
+      <label><input type="radio" name="antecedentes" value="SÃ­"> SÃ­</label>
+    </div>
+
+    <label>DÃ­a preferido para ser contactado</label>
+    <select name="dia" required>
+      <option value="">Seleccione</option>
+      <option>Lunes</option><option>Martes</option><option>MiÃ©rcoles</option>
+      <option>Jueves</option><option>Viernes</option><option>SÃ¡bado</option>
+    </select>
+
+    <label>Horario preferido</label>
+    <select name="hora" required>
+      <option value="">Seleccione</option>
+      <option>8:00 - 10:00 am</option>
+      <option>10:00 - 12:00 md</option>
+      <option>2:00 - 4:00 pm</option>
+      <option>4:00 - 6:00 pm</option>
+    </select>
+
+    <label>Su nÃºmero de WhatsApp</label>
+    <input type="tel" name="telefono" placeholder="Ej. 5555 5555" required>
+
+    <button type="submit" class="btn-eval">Ver mi evaluaciÃ³n</button>
+
+    <div class="result" id="result-us"></div>
+  </form>
+
+  <!-- CANADÃ -->
+  <form class="card" id="form-ca" data-pais="CanadÃ¡">
+    <h2>EvaluaciÃ³n Â· CanadÃ¡</h2>
+    <div class="flags">Programa de Trabajadores Extranjeros Temporales (agrÃ­cola y no agrÃ­cola)</div>
+
+    <label>Nombre completo</label>
+    <input type="text" name="nombre" required>
+
+    <label>Edad</label>
+    <input type="number" name="edad" min="18" required>
+
+    <label>Sexo</label>
+    <div class="radio-group">
+      <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
+      <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
+    </div>
+
+    <label>Departamento donde vive</label>
+    <input type="text" name="depto" required>
+
+    <label>Â¿Tiene pasaporte vigente?</label>
+    <select name="pasaporte" required>
+      <option value="">Seleccione</option>
+      <option>SÃ­, vigente</option>
+      <option>Vencido</option>
+      <option>No tengo</option>
+    </select>
+
+    <label>Â¿Tiene experiencia laboral previa?</label>
+    <select name="experiencia" required>
+      <option value="">Seleccione</option>
+      <option>AgrÃ­cola (cultivo, cosecha)</option>
+      <option>ConstrucciÃ³n</option>
+      <option>AtenciÃ³n a pacientes / cuidado</option>
+      <option>Procesamiento de alimentos</option>
+      <option>Ninguna experiencia</option>
+    </select>
+
+    <label>Â¿Habla inglÃ©s o francÃ©s?</label>
+    <select name="idioma" required>
+      <option value="">Seleccione</option>
+      <option>Nivel bÃ¡sico</option>
+      <option>Nivel intermedio/avanzado</option>
+      <option>No hablo</option>
+    </select>
+
+    <label>Â¿Tiene antecedentes penales?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="antecedentes" value="No" required> No</label>
+      <label><input type="radio" name="antecedentes" value="SÃ­"> SÃ­</label>
+    </div>
+
+    <label>DÃ­a preferido para ser contactado</label>
+    <select name="dia" required>
+      <option value="">Seleccione</option>
+      <option>Lunes</option><option>Martes</option><option>MiÃ©rcoles</option>
+      <option>Jueves</option><option>Viernes</option><option>SÃ¡bado</option>
+    </select>
+
+    <label>Horario preferido</label>
+    <select name="hora" required>
+      <option value="">Seleccione</option>
+      <option>8:00 - 10:00 am</option>
+      <option>10:00 - 12:00 md</option>
+      <option>2:00 - 4:00 pm</option>
+      <option>4:00 - 6:00 pm</option>
+    </select>
+
+    <label>Su nÃºmero de WhatsApp</label>
+    <input type="tel" name="telefono" placeholder="Ej. 5555 5555" required>
+
+    <button type="submit" class="btn-eval">Ver mi evaluaciÃ³n</button>
+
+    <div class="result" id="result-ca"></div>
+  </form>
+
+  <!-- ESPAÃ‘A -->
+  <form class="card" id="form-es" data-pais="EspaÃ±a">
+    <h2>EvaluaciÃ³n Â· EspaÃ±a</h2>
+    <div class="flags">ContrataciÃ³n en origen (campaÃ±as agrÃ­colas, hostelerÃ­a, cuidado de personas)</div>
+
+    <label>Nombre completo</label>
+    <input type="text" name="nombre" required>
+
+    <label>Edad</label>
+    <input type="number" name="edad" min="18" required>
+
+    <label>Sexo</label>
+    <div class="radio-group">
+      <label><input type="radio" name="sexo" value="Masculino" required> Masculino</label>
+      <label><input type="radio" name="sexo" value="Femenino"> Femenino</label>
+    </div>
+
+    <label>Departamento donde vive</label>
+    <input type="text" name="depto" required>
+
+    <label>Â¿Tiene pasaporte vigente?</label>
+    <select name="pasaporte" required>
+      <option value="">Seleccione</option>
+      <option>SÃ­, vigente</option>
+      <option>Vencido</option>
+      <option>No tengo</option>
+    </select>
+
+    <label>Â¿Tiene experiencia laboral previa?</label>
+    <select name="experiencia" required>
+      <option value="">Seleccione</option>
+      <option>AgrÃ­cola (cultivo, cosecha de fruta)</option>
+      <option>HostelerÃ­a / restaurantes</option>
+      <option>Cuidado de personas mayores</option>
+      <option>ConstrucciÃ³n</option>
+      <option>Ninguna experiencia</option>
+    </select>
+
+    <label>Â¿Tiene familiares o contactos en EspaÃ±a?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="contactos" value="SÃ­" required> SÃ­</label>
+      <label><input type="radio" name="contactos" value="No"> No</label>
+    </div>
+
+    <label>Â¿Tiene antecedentes penales?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="antecedentes" value="No" required> No</label>
+      <label><input type="radio" name="antecedentes" value="SÃ­"> SÃ­</label>
+    </div>
+
+    <label>DÃ­a preferido para ser contactado</label>
+    <select name="dia" required>
+      <option value="">Seleccione</option>
+      <option>Lunes</option><option>Martes</option><option>MiÃ©rcoles</option>
+      <option>Jueves</option><option>Viernes</option><option>SÃ¡bado</option>
+    </select>
+
+    <label>Horario preferido</label>
+    <select name="hora" required>
+      <option value="">Seleccione</option>
+      <option>8:00 - 10:00 am</option>
+      <option>10:00 - 12:00 md</option>
+      <option>2:00 - 4:00 pm</option>
+      <option>4:00 - 6:00 pm</option>
+    </select>
+
+    <label>Su nÃºmero de WhatsApp</label>
+    <input type="tel" name="telefono" placeholder="Ej. 5555 5555" required>
+
+    <button type="submit" class="btn-eval">Ver mi evaluaciÃ³n</button>
+
+    <div class="result" id="result-es"></div>
+  </form>
+
+</div>
+
+<script>
+const WHATSAPP_NUMBER = "50239124057"; // Guatemala +502
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('form-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+function evaluar(data, pais){
+  let faltantes = [];
+  let apto = true;
+
+  if(data.pasaporte === "No tengo") faltantes.push("Tramitar pasaporte vigente en RENAP");
+  if(data.pasaporte === "Vencido") faltantes.push("Renovar pasaporte");
+  if(data.antecedentes === "SÃ­"){
+    faltantes.push("Su caso requiere revisiÃ³n especial de antecedentes con su asesor");
+  }
+  if(data.experiencia === "Ninguna experiencia"){
+    faltantes.push("No es obligatorio tener experiencia previa, pero se recomienda orientaciÃ³n adicional segÃºn el puesto");
+  }
+  if(pais === "CanadÃ¡" && data.idioma === "No hablo"){
+    faltantes.push("Se recomienda nivel bÃ¡sico de inglÃ©s o francÃ©s segÃºn el puesto");
+  }
+
+  if(faltantes.length === 0){
+    faltantes.push("Cumple con los requisitos iniciales bÃ¡sicos para comenzar su expediente");
+  }
+
+  return faltantes;
+}
+
+['us','ca','es'].forEach(id=>{
+  const form = document.getElementById('form-'+id);
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    const pais = form.dataset.pais;
+    const resultDiv = document.getElementById('result-'+id);
+
+    const faltantes = evaluar(data, pais);
+
+    let html = `<h3>Resultado de su evaluaciÃ³n â€” ${pais}</h3>`;
+    html += `<p class="status">Hola ${data.nombre}, esto es lo que necesita revisar antes de iniciar su trÃ¡mite:</p>`;
+    html += `<ul>` + faltantes.map(f=>`<li>${f}</li>`).join('') + `</ul>`;
+    html += `<p>Un asesor asignado puede orientarle en cada paso y confirmarle su elegibilidad completa de forma personalizada.</p>`;
+
+    const mensaje = `Hola, quiero agendar mi asesorÃ­a gratuita.%0A%0A`+
+      `*PaÃ­s de interÃ©s:* ${pais}%0A`+
+      `*Nombre:* ${data.nombre}%0A`+
+      `*Edad:* ${data.edad}%0A`+
+      `*Sexo:* ${data.sexo || ''}%0A`+
+      `*Departamento:* ${data.depto}%0A`+
+      `*Pasaporte:* ${data.pasaporte}%0A`+
+      `*Experiencia:* ${data.experiencia || ''}%0A`+
+      `*Antecedentes:* ${data.antecedentes}%0A`+
+      `*DÃ­a preferido de contacto:* ${data.dia}%0A`+
+      `*Horario preferido:* ${data.hora}%0A`+
+      `*TelÃ©fono:* ${data.telefono}`;
+
+    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
+
+    html += `<a class="btn-whatsapp" href="${link}" target="_blank">ðŸ“² Agendar mi cita por WhatsApp</a>`;
+    html += `<p class="disclaimer">Esta evaluaciÃ³n es orientativa y no constituye una aprobaciÃ³n de visa. La cuota de asesorÃ­a cubre acompaÃ±amiento y gestiÃ³n logÃ­stica; los trÃ¡mites y tarifas oficiales de gobierno se pagan directamente por el solicitante. NingÃºn resultado de visa puede garantizarse.</p>`;
+
+    resultDiv.innerHTML = html;
+    resultDiv.style.display = "block";
+  });
+});
+</script>
+
+</body>
+</html>
